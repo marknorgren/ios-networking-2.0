@@ -29,7 +29,15 @@ extension TMDBClient {
         self.getRequestToken() { (success, requestToken, errorString) in
             
             if success {
-                print("requestToken: \(requestToken)")
+                
+                self.loginWithToken(requestToken, hostViewController: hostViewController) { (success, errorString) in
+                    
+                    if success {
+                        print("You did it! We have finished authenticating through the website!")
+                    } else {
+                        completionHandler(success: success, errorString: errorString)
+                    }
+                }
             } else {
                 completionHandler(success: success, errorString: errorString)
             }
@@ -59,25 +67,25 @@ extension TMDBClient {
         }
     }
     
-    // TODO: Make the following methods into convenience functions!
+    /* This function opens a TMDBAuthViewController to handle Step 2a of the auth flow */
+    func loginWithToken(requestToken: String?, hostViewController: UIViewController, completionHandler: (success: Bool, errorString: String?) -> Void) {
+        
+        let authorizationURL = NSURL(string: "\(TMDBClient.Constants.AuthorizationURL)\(requestToken!)")
+        let request = NSURLRequest(URL: authorizationURL!)
+        let webAuthViewController = hostViewController.storyboard!.instantiateViewControllerWithIdentifier("TMDBAuthViewController") as! TMDBAuthViewController
+        webAuthViewController.urlRequest = request
+        webAuthViewController.requestToken = requestToken
+        webAuthViewController.completionHandler = completionHandler
+        
+        let webAuthNavigationController = UINavigationController()
+        webAuthNavigationController.pushViewController(webAuthViewController, animated: false)
+        
+        dispatch_async(dispatch_get_main_queue(), {
+            hostViewController.presentViewController(webAuthNavigationController, animated: true, completion: nil)
+        })
+    }
     
-//    /* This function opens a TMDBAuthViewController to handle Step 2a of the auth flow */
-//    func loginWithToken(requestToken: String?, hostViewController: UIViewController, completionHandler: (success: Bool, errorString: String?) -> Void) {
-//        
-//        let authorizationURL = NSURL(string: "\(TMDBClient.Constants.AuthorizationURL)\(requestToken!)")
-//        let request = NSURLRequest(URL: authorizationURL!)
-//        let webAuthViewController = hostViewController.storyboard!.instantiateViewControllerWithIdentifier("TMDBAuthViewController") as! TMDBAuthViewController
-//        webAuthViewController.urlRequest = request
-//        webAuthViewController.requestToken = requestToken
-//        webAuthViewController.completionHandler = completionHandler
-//        
-//        let webAuthNavigationController = UINavigationController()
-//        webAuthNavigationController.pushViewController(webAuthViewController, animated: false)
-//        
-//        dispatch_async(dispatch_get_main_queue(), {
-//            hostViewController.presentViewController(webAuthNavigationController, animated: true, completion: nil)
-//        })
-//    }
+    // TODO: Make the following methods into convenience functions!
     
 //    func getSessionID(requestToken: String) {
 //        
