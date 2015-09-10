@@ -33,10 +33,83 @@ class MovieDetailViewController: UIViewController {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-        // TODO: Get favorite movies, then update the favorite button
-        // TODO: Get watchlist movies, then update the watchlist button
-        // TODO: Get the poster image, then populate the poster image view
-        print("implement me: MovieDetailViewController viewWillAppear()")
+        self.activityIndicator.alpha = 1.0
+        self.activityIndicator.startAnimating()
+        
+        /* Set the UI, then check if the movie is a favorite/watchlist and update the buttons! */
+        if let movie = movie {
+            
+            /* Set the title */
+            if let releaseYear = movie.releaseYear {
+                self.navigationItem.title = "\(movie.title) (\(releaseYear))"
+            } else {
+                self.navigationItem.title = "\(movie.title)"
+            }
+            
+            /* Setting some default UI ... */
+            posterImageView.image = UIImage(named: "MissingPoster")
+            isFavorite = false
+            
+            /* Is the movie a favorite? */
+            TMDBClient.sharedInstance().getFavoriteMovies { movies, error in
+                if let movies = movies {
+                    
+                    for movie in movies {
+                        if movie.id == self.movie!.id {
+                            self.isFavorite = true
+                        }
+                    }
+                    
+                    dispatch_async(dispatch_get_main_queue()) {
+                        if self.isFavorite {
+                            self.toggleFavoriteButton.tintColor = nil
+                        } else {
+                            self.toggleFavoriteButton.tintColor = UIColor.blackColor()
+                        }
+                    }
+                } else {
+                    print(error)
+                }
+            }
+            
+            /* Is the movie on the watchlist? */
+            TMDBClient.sharedInstance().getWatchlistMovies { movies, error in
+                if let movies = movies {
+                    
+                    for movie in movies {
+                        if movie.id == self.movie!.id {
+                            self.isWatchlist = true
+                        }
+                    }
+                    
+                    dispatch_async(dispatch_get_main_queue()) {
+                        if self.isWatchlist {
+                            self.toggleWatchlistButton.tintColor = nil
+                        } else {
+                            self.toggleWatchlistButton.tintColor = UIColor.blackColor()
+                        }
+                    }
+                } else {
+                    print(error)
+                }
+            }
+            
+            /* Set the poster image */
+            if let posterPath = movie.posterPath {
+                TMDBClient.sharedInstance().taskForGETImage(TMDBClient.PosterSizes.DetailPoster, filePath: posterPath, completionHandler: { (imageData, error) in
+                    if let image = UIImage(data: imageData!) {
+                        dispatch_async(dispatch_get_main_queue()) {
+                            self.activityIndicator.alpha = 0.0
+                            self.activityIndicator.stopAnimating()
+                            self.posterImageView.image = image
+                        }
+                    }
+                })
+            } else {
+                self.activityIndicator.alpha = 0.0
+                self.activityIndicator.stopAnimating()
+            }
+        }
     }
     
     // MARK: Actions

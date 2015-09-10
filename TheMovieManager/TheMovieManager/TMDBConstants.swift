@@ -102,4 +102,12 @@ extension TMDBClient {
         static let MovieResults = "results"
         
     }
+    
+    // MARK: Poster Sizes
+    struct PosterSizes {
+        
+        static let RowPoster = TMDBClient.sharedInstance().config.posterSizes[2]
+        static let DetailPoster = TMDBClient.sharedInstance().config.posterSizes[4]
+        
+    }
 }
