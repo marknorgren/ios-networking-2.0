@@ -30,7 +30,7 @@ class TMDBClient : NSObject {
         session = NSURLSession.sharedSession()
         super.init()
     }
-    
+
     // MARK: GET
     
     func taskForGETMethod(method: String, parameters: [String : AnyObject], completionHandler: (result: AnyObject!, error: NSError?) -> Void) -> NSURLSessionDataTask {
