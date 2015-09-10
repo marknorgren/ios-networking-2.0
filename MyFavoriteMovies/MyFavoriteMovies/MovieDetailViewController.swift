@@ -199,6 +199,8 @@ class MovieDetailViewController: UIViewController {
     
     @IBAction func unFavoriteButtonTouchUpInside(sender: AnyObject) {
         
+        print("unFavoriteButtonTouchUpInside: implement me!")
+        
         /* TASK: Remove movie as favorite, then update favorite buttons */
         /* 1. Set the parameters */
         /* 2. Build the URL */
@@ -210,6 +212,8 @@ class MovieDetailViewController: UIViewController {
     }
     
     @IBAction func favoriteButtonTouchUpInside(sender: AnyObject) {
+        
+        print("favoriteButtonTouchUpInside: implement me!")
         
         /* TASK: Add movie as favorite, then update favorite buttons */
         /* 1. Set the parameters */
