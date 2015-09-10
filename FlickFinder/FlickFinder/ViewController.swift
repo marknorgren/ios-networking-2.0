@@ -21,4 +21,11 @@ class ViewController: UIViewController {
     @IBOutlet weak var latitudeTextField: UITextField!
     @IBOutlet weak var longitudeTextField: UITextField!
 
+    @IBAction func searchPhotosByPhraseButtonTouchUp(sender: AnyObject) {
+        print("Implement this function...")
+    }
+    
+    @IBAction func searchPhotosByLatLonButtonTouchUp(sender: AnyObject) {
+        print("Will implement this function in a later step...")
+    }
 }

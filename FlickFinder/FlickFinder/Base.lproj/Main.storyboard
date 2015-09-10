@@ -48,6 +48,9 @@
                                             <color key="titleColor" red="0.96470588239999999" green="0.66274509800000003" blue="0.14901960780000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <connections>
+                                            <action selector="searchPhotosByPhraseButtonTouchUp:" destination="BYZ-38-t0r" eventType="touchUpInside" id="DWV-zE-qEc"/>
+                                        </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Latitude" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hyv-Rd-F7I" userLabel="Lat Label">
                                         <rect key="frame" x="80" y="119" width="92" height="34"/>
@@ -79,6 +82,9 @@
                                             <color key="titleColor" red="0.96470588239999999" green="0.66274509800000003" blue="0.14901960780000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <connections>
+                                            <action selector="searchPhotosByLatLonButtonTouchUp:" destination="BYZ-38-t0r" eventType="touchUpInside" id="YMQ-uM-0Pi"/>
+                                        </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Longitude" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sGJ-GG-ERX" userLabel="Lon Label">
                                         <rect key="frame" x="314" y="122" width="128" height="31"/>
