@@ -169,7 +169,7 @@ class LoginViewController: UIViewController {
             
             /* 6. Use the data! */
             self.appDelegate.requestToken = requestToken
-            print("gotRequestToken: \(requestToken)")
+            self.loginWithToken(self.appDelegate.requestToken!)
         }
         
         /* 7. Start the request */
@@ -177,6 +177,8 @@ class LoginViewController: UIViewController {
     }
     
     func loginWithToken(requestToken: String) {
+        
+        print("loginWithToken: implement me!")
         
         /* TASK: Login, then get a session id */
         /* 1. Set the parameters */
@@ -189,6 +191,8 @@ class LoginViewController: UIViewController {
     }
     
     func getSessionID(requestToken: String) {
+        
+        print("getSessionID: implement me!")
         
         /* TASK: Get a session ID, then store it (appDelegate.sessionID) and get the user's id */
         /* 1. Set the parameters */
