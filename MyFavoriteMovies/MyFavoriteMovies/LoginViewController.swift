@@ -252,7 +252,7 @@ class LoginViewController: UIViewController {
             }
             
             /* 6. Use the data! */
-            print("Login complete!")
+            self.getSessionID(self.appDelegate.requestToken!)
         }
         
         /* 7. Start the request */
