@@ -456,4 +456,3 @@ extension LoginViewController {
         return keyboardSize.CGRectValue().height
     }
 }
-
