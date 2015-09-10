@@ -21,7 +21,7 @@ extension TMDBClient {
     Step 1: Create a new request token
     Step 2a: Ask the user for permission via the website
     Step 3: Create a session ID
-    Bonus Step: Go ahead and get the user id 😎!
+    Bonus Step: Go ahead and get the user id 😄!
     */
     func authenticateWithViewController(hostViewController: UIViewController, completionHandler: (success: Bool, errorString: String?) -> Void) {
         
