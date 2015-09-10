@@ -33,7 +33,30 @@ extension TMDBClient {
                 self.loginWithToken(requestToken, hostViewController: hostViewController) { (success, errorString) in
                     
                     if success {
-                        print("You did it! We have finished authenticating through the website!")
+                        self.getSessionID(requestToken) { (success, sessionID, errorString) in
+                            
+                            if success {
+                                
+                                /* Success! We have the sessionID! */
+                                self.sessionID = sessionID
+                                
+                                self.getUserID() { (success, userID, errorString) in
+                                    
+                                    if success {
+                                        
+                                        if let userID = userID {
+                                            
+                                            /* And the userID 😄! */
+                                            self.userID = userID
+                                        }
+                                    }
+                                    
+                                    completionHandler(success: success, errorString: errorString)
+                                }
+                            } else {
+                                completionHandler(success: success, errorString: errorString)
+                            }
+                        }
                     } else {
                         completionHandler(success: success, errorString: errorString)
                     }
@@ -83,6 +106,22 @@ extension TMDBClient {
         dispatch_async(dispatch_get_main_queue(), {
             hostViewController.presentViewController(webAuthNavigationController, animated: true, completion: nil)
         })
+    }
+    
+    func getSessionID(requestToken: String?, completionHandler: (success: Bool, sessionID: String?, errorString: String?) -> Void) {
+        
+        /* 1. Specify parameters, method (if has {key}), and HTTP body (if POST) */
+        /* 2. Make the request */
+        /* 3. Send the desired value(s) to completion handler */
+        print("implement me: TMDBClient getSessionID")
+    }
+    
+    func getUserID(completionHandler: (success: Bool, userID: Int?, errorString: String?) -> Void) {
+        
+        /* 1. Specify parameters, method (if has {key}), and HTTP body (if POST) */
+        /* 2. Make the request */
+        /* 3. Send the desired value(s) to completion handler */
+        print("implement me: TMDBClient getUserID")
     }
     
     // TODO: Make the following methods into convenience functions!
