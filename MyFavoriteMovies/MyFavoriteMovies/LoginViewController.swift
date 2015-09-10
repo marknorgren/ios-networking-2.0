@@ -334,7 +334,7 @@ class LoginViewController: UIViewController {
             
             /* 6. Use the data! */
             self.appDelegate.sessionID = sessionID
-            print("getSessionID: \(sessionID)")
+            self.getUserID(self.appDelegate.sessionID!)
         }
         
         /* 7. Start the request */
@@ -342,6 +342,8 @@ class LoginViewController: UIViewController {
     }
     
     func getUserID(session_id : String) {
+        
+        print("getUserID: implement me!")
         
         /* TASK: Get the user's ID, then store it (appDelegate.userID) for future use and go to next view! */
         /* 1. Set the parameters */
