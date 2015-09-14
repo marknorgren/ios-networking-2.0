@@ -68,6 +68,8 @@ class LoginViewController: UIViewController {
             debugTextLabel.text = "Password Empty."
         } else {
             
+            self.setUIEnabled(enabled: false)
+            
             /*
             Steps for Authentication...
             https://www.themoviedb.org/documentation/api/sessions
@@ -88,6 +90,7 @@ class LoginViewController: UIViewController {
     func completeLogin() {
         dispatch_async(dispatch_get_main_queue(), {
             self.debugTextLabel.text = ""
+            self.setUIEnabled(enabled: true)
             let controller = self.storyboard!.instantiateViewControllerWithIdentifier("MoviesTabBarController") as! UITabBarController
             self.presentViewController(controller, animated: true, completion: nil)
         })
@@ -118,6 +121,7 @@ class LoginViewController: UIViewController {
             /* GUARD: Was there an error? */
             guard (error == nil) else {
                 dispatch_async(dispatch_get_main_queue()) {
+                    self.setUIEnabled(enabled: true)
                     self.debugTextLabel.text = "Login Failed (Request Token)."
                 }
                 print("There was an error with your request: \(error)")
@@ -126,6 +130,9 @@ class LoginViewController: UIViewController {
             
             /* GUARD: Did we get a successful 2XX response? */
             guard let statusCode = (response as? NSHTTPURLResponse)?.statusCode where statusCode >= 200 && statusCode <= 299 else {
+                dispatch_async(dispatch_get_main_queue()) {
+                    self.setUIEnabled(enabled: true)
+                }
                 if let response = response as? NSHTTPURLResponse {
                     print("Your request returned an invalid response! Status code: \(response.statusCode)!")
                 } else if let response = response {
@@ -138,6 +145,9 @@ class LoginViewController: UIViewController {
             
             /* GUARD: Was there any data returned? */
             guard let data = data else {
+                dispatch_async(dispatch_get_main_queue()) {
+                    self.setUIEnabled(enabled: true)
+                }
                 print("No data was returned by the request!")
                 return
             }
@@ -148,12 +158,18 @@ class LoginViewController: UIViewController {
                 parsedResult = try NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments)
             } catch {
                 parsedResult = nil
+                dispatch_async(dispatch_get_main_queue()) {
+                    self.setUIEnabled(enabled: true)
+                }
                 print("Could not parse the data as JSON: '\(data)'")
                 return
             }
             
             /* GUARD: Did TheMovieDB return an error? */
             guard (parsedResult.objectForKey("status_code") == nil) else {
+                dispatch_async(dispatch_get_main_queue()) {
+                    self.setUIEnabled(enabled: true)
+                }
                 print("TheMovieDB returned an error. See the status_code and status_message in \(parsedResult)")
                 return
             }
@@ -161,6 +177,7 @@ class LoginViewController: UIViewController {
             /* GUARD: Is the "request_token" key in parsedResult? */
             guard let requestToken = parsedResult["request_token"] as? String else {
                 dispatch_async(dispatch_get_main_queue()) {
+                    self.setUIEnabled(enabled: true)
                     self.debugTextLabel.text = "Login Failed (Request Token)."
                 }
                 print("Cannot find key 'request_token' in \(parsedResult)")
@@ -202,6 +219,7 @@ class LoginViewController: UIViewController {
             /* GUARD: Was there an error? */
             guard (error == nil) else {
                 dispatch_async(dispatch_get_main_queue()) {
+                    self.setUIEnabled(enabled: true)
                     self.debugTextLabel.text = "Login Failed (Login Step)."
                 }
                 print("There was an error with your request: \(error)")
@@ -210,6 +228,9 @@ class LoginViewController: UIViewController {
             
             /* GUARD: Did we get a successful 2XX response? */
             guard let statusCode = (response as? NSHTTPURLResponse)?.statusCode where statusCode >= 200 && statusCode <= 299 else {
+                dispatch_async(dispatch_get_main_queue()) {
+                    self.setUIEnabled(enabled: true)
+                }
                 if let response = response as? NSHTTPURLResponse {
                     print("Your request returned an invalid response! Status code: \(response.statusCode)!")
                 } else if let response = response {
@@ -222,6 +243,9 @@ class LoginViewController: UIViewController {
             
             /* GUARD: Was there any data returned? */
             guard let data = data else {
+                dispatch_async(dispatch_get_main_queue()) {
+                    self.setUIEnabled(enabled: true)
+                }
                 print("No data was returned by the request!")
                 return
             }
@@ -232,12 +256,18 @@ class LoginViewController: UIViewController {
                 parsedResult = try NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments)
             } catch {
                 parsedResult = nil
+                dispatch_async(dispatch_get_main_queue()) {
+                    self.setUIEnabled(enabled: true)
+                }
                 print("Could not parse the data as JSON: '\(data)'")
                 return
             }
             
             /* GUARD: Did TheMovieDB return an error? */
             guard (parsedResult.objectForKey("status_code") == nil) else {
+                dispatch_async(dispatch_get_main_queue()) {
+                    self.setUIEnabled(enabled: true)
+                }
                 print("TheMovieDB returned an error. See the status_code and status_message in \(parsedResult)")
                 return
             }
@@ -245,6 +275,7 @@ class LoginViewController: UIViewController {
             /* GUARD: Is the "success" key in parsedResult? */
             guard let _ = parsedResult["success"] as? Bool else {
                 dispatch_async(dispatch_get_main_queue()) {
+                    self.setUIEnabled(enabled: true)
                     self.debugTextLabel.text = "Login Failed (Login Step)."
                 }
                 print("Login failed.")
@@ -283,6 +314,7 @@ class LoginViewController: UIViewController {
             /* GUARD: Was there an error? */
             guard (error == nil) else {
                 dispatch_async(dispatch_get_main_queue()) {
+                    self.setUIEnabled(enabled: true)
                     self.debugTextLabel.text = "Login Failed (Session ID)."
                 }
                 print("There was an error with your request: \(error)")
@@ -291,6 +323,9 @@ class LoginViewController: UIViewController {
             
             /* GUARD: Did we get a successful 2XX response? */
             guard let statusCode = (response as? NSHTTPURLResponse)?.statusCode where statusCode >= 200 && statusCode <= 299 else {
+                dispatch_async(dispatch_get_main_queue()) {
+                    self.setUIEnabled(enabled: true)
+                }
                 if let response = response as? NSHTTPURLResponse {
                     print("Your request returned an invalid response! Status code: \(response.statusCode)!")
                 } else if let response = response {
@@ -303,6 +338,9 @@ class LoginViewController: UIViewController {
             
             /* GUARD: Was there any data returned? */
             guard let data = data else {
+                dispatch_async(dispatch_get_main_queue()) {
+                    self.setUIEnabled(enabled: true)
+                }
                 print("No data was returned by the request!")
                 return
             }
@@ -313,12 +351,18 @@ class LoginViewController: UIViewController {
                 parsedResult = try NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments)
             } catch {
                 parsedResult = nil
+                dispatch_async(dispatch_get_main_queue()) {
+                    self.setUIEnabled(enabled: true)
+                }
                 print("Could not parse the data as JSON: '\(data)'")
                 return
             }
             
             /* GUARD: Did TheMovieDB return an error? */
             guard (parsedResult.objectForKey("status_code") == nil) else {
+                dispatch_async(dispatch_get_main_queue()) {
+                    self.setUIEnabled(enabled: true)
+                }
                 print("TheMovieDB returned an error. See the status_code and status_message in \(parsedResult)")
                 return
             }
@@ -326,6 +370,7 @@ class LoginViewController: UIViewController {
             /* GUARD: Is the "sessionID" key in parsedResult? */
             guard let sessionID = parsedResult["session_id"] as? String else {
                 dispatch_async(dispatch_get_main_queue()) {
+                    self.setUIEnabled(enabled: true)
                     self.debugTextLabel.text = "Login Failed (Session ID)."
                 }
                 print("Cannot find key 'sessionID' in \(parsedResult)")
@@ -365,6 +410,7 @@ class LoginViewController: UIViewController {
             /* GUARD: Was there an error? */
             guard (error == nil) else {
                 dispatch_async(dispatch_get_main_queue()) {
+                    self.setUIEnabled(enabled: true)
                     self.debugTextLabel.text = "Login Failed (User ID)."
                 }
                 print("There was an error with your request: \(error)")
@@ -373,6 +419,9 @@ class LoginViewController: UIViewController {
             
             /* GUARD: Did we get a successful 2XX response? */
             guard let statusCode = (response as? NSHTTPURLResponse)?.statusCode where statusCode >= 200 && statusCode <= 299 else {
+                dispatch_async(dispatch_get_main_queue()) {
+                    self.setUIEnabled(enabled: true)
+                }
                 if let response = response as? NSHTTPURLResponse {
                     print("Your request returned an invalid response! Status code: \(response.statusCode)!")
                 } else if let response = response {
@@ -385,6 +434,9 @@ class LoginViewController: UIViewController {
             
             /* GUARD: Was there any data returned? */
             guard let data = data else {
+                dispatch_async(dispatch_get_main_queue()) {
+                    self.setUIEnabled(enabled: true)
+                }
                 print("No data was returned by the request!")
                 return
             }
@@ -395,12 +447,18 @@ class LoginViewController: UIViewController {
                 parsedResult = try NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments)
             } catch {
                 parsedResult = nil
+                dispatch_async(dispatch_get_main_queue()) {
+                    self.setUIEnabled(enabled: true)
+                }
                 print("Could not parse the data as JSON: '\(data)'")
                 return
             }
             
             /* GUARD: Did TheMovieDB return an error? */
             guard (parsedResult.objectForKey("status_code") == nil) else {
+                dispatch_async(dispatch_get_main_queue()) {
+                    self.setUIEnabled(enabled: true)
+                }
                 print("TheMovieDB returned an error. See the status_code and status_message in \(parsedResult)")
                 return
             }
@@ -408,6 +466,7 @@ class LoginViewController: UIViewController {
             /* GUARD: Is the "sessionID" key in parsedResult? */
             guard let userID = parsedResult!["id"] as? Int else {
                 dispatch_async(dispatch_get_main_queue()) {
+                    self.setUIEnabled(enabled: true)
                     self.debugTextLabel.text = "Login Failed (User ID)."
                 }
                 print("Cannot find key 'id' in \(parsedResult)")
@@ -427,6 +486,19 @@ class LoginViewController: UIViewController {
 // MARK: - LoginViewController (Configure UI)
 
 extension LoginViewController {
+    
+    func setUIEnabled(enabled enabled: Bool) {
+        usernameTextField.enabled = enabled
+        passwordTextField.enabled = enabled
+        loginButton.enabled = enabled
+        debugTextLabel.enabled = enabled
+        
+        if enabled {
+            loginButton.alpha = 1.0
+        } else {
+            loginButton.alpha = 0.5
+        }
+    }
     
     func configureUI() {
         
