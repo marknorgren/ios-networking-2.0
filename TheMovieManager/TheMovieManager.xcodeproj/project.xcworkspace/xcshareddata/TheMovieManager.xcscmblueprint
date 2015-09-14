@@ -1,15 +1,17 @@
 {
-  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "FF41214CA25FE390FE8C58321EC7E1E262D2C473",
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "DADF9CA0209A985E9ACCEE951C641FCAB60D7F28",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
 
   },
   "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
     "06B17395845E828303F27DC33B46C98360A84829" : 0,
+    "DADF9CA0209A985E9ACCEE951C641FCAB60D7F28" : 0,
     "FF41214CA25FE390FE8C58321EC7E1E262D2C473" : 0
   },
   "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "3F5BA300-9D18-40C7-AA2E-0519DEEDDAC7",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
     "06B17395845E828303F27DC33B46C98360A84829" : "ios-networking",
+    "DADF9CA0209A985E9ACCEE951C641FCAB60D7F28" : "ios-networking-2.0\/",
     "FF41214CA25FE390FE8C58321EC7E1E262D2C473" : "ios-networking-2.0-raw\/"
   },
   "DVTSourceControlWorkspaceBlueprintNameKey" : "TheMovieManager",
@@ -20,6 +22,11 @@
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/udacity\/ios-networking",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "06B17395845E828303F27DC33B46C98360A84829"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/udacity\/ios-networking-2.0.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "DADF9CA0209A985E9ACCEE951C641FCAB60D7F28"
     },
     {
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/udacity\/ios-networking-2.0.git",
