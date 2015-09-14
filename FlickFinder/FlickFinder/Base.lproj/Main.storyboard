@@ -173,10 +173,12 @@
                     </view>
                     <connections>
                         <outlet property="defaultLabel" destination="bIc-bi-1OZ" id="AfI-ca-GXy"/>
+                        <outlet property="latLonSearchButton" destination="tRV-bR-z2y" id="PY5-gu-v1S"/>
                         <outlet property="latitudeTextField" destination="3Sr-SA-Svb" id="KCo-3u-fev"/>
                         <outlet property="longitudeTextField" destination="1pE-pq-OJW" id="1XT-Tv-DHH"/>
                         <outlet property="photoImageView" destination="B4u-Yl-7WN" id="Lcd-11-py4"/>
                         <outlet property="photoTitleLabel" destination="Nr1-Ho-ndm" id="tNZ-Ym-Orl"/>
+                        <outlet property="phraseSearchButton" destination="yjg-l0-X1K" id="vnh-51-8H5"/>
                         <outlet property="phraseTextField" destination="4hO-SY-ZBn" id="l3g-TM-tDc"/>
                     </connections>
                 </viewController>
