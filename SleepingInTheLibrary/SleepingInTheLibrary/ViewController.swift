@@ -18,14 +18,16 @@ let DATA_FORMAT = "json"
 let NO_JSON_CALLBACK = "1"
 
 class ViewController: UIViewController {
- 
+    
     @IBOutlet weak var photoImageView: UIImageView!
     @IBOutlet weak var photoTitle: UILabel!
+    @IBOutlet weak var grabImageButton: UIButton!
     
     @IBAction func touchGrabNewImageButton(sender: AnyObject) {
+        setUIEnabled(enabled: false)
         getImageFromFlickr()
     }
-
+    
     func getImageFromFlickr() {
         
         /* 2 - API method arguments */
@@ -50,12 +52,18 @@ class ViewController: UIViewController {
             /* 5 - Check for a successful response */
             /* GUARD: Was there an error? */
             guard (error == nil) else {
+                dispatch_async(dispatch_get_main_queue(), {
+                    self.setUIEnabled(enabled: true)
+                })
                 print("There was an error with your request: \(error)")
                 return
             }
             
             /* GUARD: Did we get a successful 2XX response? */
             guard let statusCode = (response as? NSHTTPURLResponse)?.statusCode where statusCode >= 200 && statusCode <= 299 else {
+                dispatch_async(dispatch_get_main_queue(), {
+                    self.setUIEnabled(enabled: true)
+                })
                 if let response = response as? NSHTTPURLResponse {
                     print("Your request returned an invalid response! Status code: \(response.statusCode)!")
                 } else if let response = response {
@@ -65,9 +73,12 @@ class ViewController: UIViewController {
                 }
                 return
             }
-
+            
             /* GUARD: Was there any data returned? */
             guard let data = data else {
+                dispatch_async(dispatch_get_main_queue(), {
+                    self.setUIEnabled(enabled: true)
+                })
                 print("No data was returned by the request!")
                 return
             }
@@ -78,12 +89,18 @@ class ViewController: UIViewController {
                 parsedResult = try NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments)
             } catch {
                 parsedResult = nil
+                dispatch_async(dispatch_get_main_queue(), {
+                    self.setUIEnabled(enabled: true)
+                })
                 print("Could not parse the data as JSON: '\(data)'")
                 return
             }
             
             /* GUARD: Did Flickr return an error (stat != ok)? */
             guard let stat = parsedResult["stat"] as? String where stat == "ok" else {
+                dispatch_async(dispatch_get_main_queue(), {
+                    self.setUIEnabled(enabled: true)
+                })
                 print("Flickr API returned an error. See error code and message in \(parsedResult)")
                 return
             }
@@ -91,8 +108,11 @@ class ViewController: UIViewController {
             /* GUARD: Are the "photos" and "photo" keys in our result? */
             guard let photosDictionary = parsedResult["photos"] as? NSDictionary,
                 photoArray = photosDictionary["photo"] as? [[String: AnyObject]] else {
-                print("Cannot find keys 'photos' and 'photo' in \(parsedResult)")
-                return
+                    dispatch_async(dispatch_get_main_queue(), {
+                        self.setUIEnabled(enabled: true)
+                    })
+                    print("Cannot find keys 'photos' and 'photo' in \(parsedResult)")
+                    return
             }
             
             /* 7 - Generate a random number, then select a random photo */
@@ -102,6 +122,9 @@ class ViewController: UIViewController {
             
             /* GUARD: Does our photo have a key for 'url_m'? */
             guard let imageUrlString = photoDictionary["url_m"] as? String else {
+                dispatch_async(dispatch_get_main_queue(), {
+                    self.setUIEnabled(enabled: true)
+                })
                 print("Cannot find key 'url_m' in \(photoDictionary)")
                 return
             }
@@ -110,6 +133,7 @@ class ViewController: UIViewController {
             let imageURL = NSURL(string: imageUrlString)
             if let imageData = NSData(contentsOfURL: imageURL!) {
                 dispatch_async(dispatch_get_main_queue(), {
+                    self.setUIEnabled(enabled: true)
                     self.photoImageView.image = UIImage(data: imageData)
                     self.photoTitle.text = photoTitle ?? "(Untitled)"
                 })
@@ -121,7 +145,20 @@ class ViewController: UIViewController {
         /* 9 - Resume (execute) the task */
         task.resume()
     }
-
+    
+    // Configure UI
+    
+    func setUIEnabled(enabled enabled: Bool) {
+        photoTitle.enabled = enabled
+        grabImageButton.enabled = enabled
+        
+        if enabled {
+            grabImageButton.alpha = 1.0
+        } else {
+            grabImageButton.alpha = 0.5
+        }
+    }
+    
     /* Helper function: Given a dictionary of parameters, convert to a string for a url */
     func escapedParameters(parameters: [String : AnyObject]) -> String {
         
