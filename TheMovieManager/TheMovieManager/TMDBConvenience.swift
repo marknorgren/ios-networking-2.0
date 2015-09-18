@@ -161,8 +161,8 @@ extension TMDBClient {
         /* 1. Specify parameters, method (if has {key}), and HTTP body (if POST) */
         let parameters = [TMDBClient.ParameterKeys.SessionID: TMDBClient.sharedInstance().sessionID!]
         var mutableMethod : String = Methods.AccountIDFavoriteMovies
-        mutableMethod = TMDBClient.subtituteKeyInMethod(mutableMethod, key: TMDBClient.URLKeys.UserID, value: String(TMDBClient.sharedInstance().userID!))!
-        
+        mutableMethod = TMDBClient.substituteKeyInMethod(mutableMethod, key: TMDBClient.URLKeys.UserID, value: String(TMDBClient.sharedInstance().userID!))!
+
         /* 2. Make the request */
         taskForGETMethod(mutableMethod, parameters: parameters) { JSONResult, error in
             
