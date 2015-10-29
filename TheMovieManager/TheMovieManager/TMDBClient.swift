@@ -187,7 +187,7 @@ class TMDBClient : NSObject {
     // MARK: Helpers
     
     /* Helper: Substitute the key for the value that is contained within the method name */
-    class func subtituteKeyInMethod(method: String, key: String, value: String) -> String? {
+    class func substituteKeyInMethod(method: String, key: String, value: String) -> String? {
         if method.rangeOfString("{\(key)}") != nil {
             return method.stringByReplacingOccurrencesOfString("{\(key)}", withString: value)
         } else {
